@@ -32,15 +32,31 @@ public class SignupPage extends AppCompatActivity {
     }
 
     private void setupPasswordToggle(EditText editText) {
+        final boolean[] isVisible = {false};
+
         editText.setOnTouchListener((v, event) -> {
             if(event.getAction() == MotionEvent.ACTION_UP) {
-                if(event.getRawX() >= (editText.getRight() - editText.getCompoundDrawables()[2].getBounds().width())) {
-                    if(editText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    } else {
+                if(editText.getCompoundDrawables()[2] != null && event.getRawX() >= (editText.getRight() - editText.getCompoundDrawables()[2].getBounds().width() - 20)) {
+                    if(isVisible[0]) {
                         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        editText.setCompoundDrawablesWithIntrinsicBounds(
+                                editText.getCompoundDrawables()[0],
+                                null,
+                                getDrawable(R.drawable.baseline_visibility_24),
+                                null
+                        );
+                        isVisible[0] = false;
+                    } else {
+                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        editText.setCompoundDrawablesWithIntrinsicBounds(
+                                editText.getCompoundDrawables()[0],
+                                null,
+                                getDrawable(R.drawable.baseline_visibility_off_24),
+                                null
+                        );
+                        isVisible[0] = true;
                     }
-                    editText.setSelection(editText.getText().length());
+                    editText.setSelection(editText.length());
                     return true;
                 }
             }
