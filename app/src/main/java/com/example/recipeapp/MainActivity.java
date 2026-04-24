@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(MainActivity.this, SignupPage.class);
+        Intent intent = new Intent(MainActivity.this, LoginPage.class);
         startActivity(intent);
         finish();
     }
